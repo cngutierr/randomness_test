@@ -70,3 +70,32 @@ TEST(RandTest, test_runs_not1)
                                0xaa, 0xaa, 0x00, 0x00};
   TEST_ASSERT_FLOAT_WITHIN(0.1, 0.01, runs(testbuf, 16));
 }
+
+
+
+TEST(RandTest, test_runs_one_block_rand1)
+{
+  unsigned char testbuf[16] = {0xc1, 0xaf, 0x5d, 0xdd,
+                               0xd9, 0x61, 0x03, 0xc9,
+                               0x54, 0x87, 0xd7, 0x61,
+                               0x13, 0xf2, 0x63, 0x20};
+  TEST_ASSERT_FLOAT_WITHIN(0.01, 0.63, runs_one_block(testbuf, 16, 1));
+}
+
+TEST(RandTest, test_runs_one_block_rand2)
+{
+  unsigned char testbuf[16] = {0x1e, 0xbf, 0xeb, 0x16,
+                               0xd8, 0x25, 0xdb, 0xc4,
+                               0x02, 0x6a, 0x2f, 0x49,
+                               0x14, 0x91, 0x1c, 0x51};
+  TEST_ASSERT_FLOAT_WITHIN(0.01, 0.42, runs_one_block(testbuf, 16,1));
+}
+
+TEST(RandTest, test_runs_one_block_not1)
+{
+  unsigned char testbuf[16] = {0xaa, 0xaa, 0xbb, 0xff,
+                               0x9f, 0xff, 0xff, 0x00,
+                               0xff, 0xff, 0xff, 0x00,
+                               0xaa, 0xaa, 0x00, 0x00};
+  TEST_ASSERT_FLOAT_WITHIN(0.1, 0.0001, runs_one_block(testbuf, 16,1));
+}

@@ -68,3 +68,50 @@ TEST(UtilTest, test_run_count_1)
     unsigned char testbuf[2] = {0x00, 0xff};
     TEST_ASSERT_EQUAL(2, run_count(testbuf, 2));
 }
+TEST(UtilTest, test_longest_one_run_0)
+{
+    unsigned char testbuf[2] = {0x00, 0x00};
+    TEST_ASSERT_EQUAL(0, longest_one_run(testbuf, 2));
+    TEST_ASSERT_EQUAL(0, get_v_bucket(0, &small_block_consts));
+    TEST_ASSERT_EQUAL(0, get_v_bucket(0, &medium_block_consts));
+}
+
+TEST(UtilTest, test_longest_one_run_1)
+{
+    unsigned char testbuf[2] = {0x10, 0x00};
+    TEST_ASSERT_EQUAL(1, longest_one_run(testbuf, 2));
+    TEST_ASSERT_EQUAL(0, get_v_bucket(1, &small_block_consts));
+    TEST_ASSERT_EQUAL(0, get_v_bucket(1, &medium_block_consts));
+}
+
+TEST(UtilTest, test_longest_one_run_2)
+{
+    unsigned char testbuf[2] = {0x03, 0x00};
+    TEST_ASSERT_EQUAL(2, longest_one_run(testbuf, 2));
+    TEST_ASSERT_EQUAL(1, get_v_bucket(2, &small_block_consts));
+    TEST_ASSERT_EQUAL(0, get_v_bucket(2, &medium_block_consts));
+}
+
+TEST(UtilTest, test_longest_one_run_4)
+{
+    unsigned char testbuf[2] = {0xc2, 0x23};
+    TEST_ASSERT_EQUAL(4, longest_one_run(testbuf, 2));
+    TEST_ASSERT_EQUAL(3, get_v_bucket(4, &small_block_consts));
+    TEST_ASSERT_EQUAL(0, get_v_bucket(4, &medium_block_consts));
+}
+
+TEST(UtilTest, test_longest_one_run_8)
+{
+    unsigned char testbuf[2] = {0xf0, 0x6f};
+    TEST_ASSERT_EQUAL(8, longest_one_run(testbuf, 2));
+    TEST_ASSERT_EQUAL(3, get_v_bucket(8, &small_block_consts));
+    TEST_ASSERT_EQUAL(4, get_v_bucket(8, &medium_block_consts));
+}
+
+TEST(UtilTest, test_longest_one_run_16)
+{
+    unsigned char testbuf[2] = {0xff, 0xff};
+    TEST_ASSERT_EQUAL(16, longest_one_run(testbuf, 2));
+    TEST_ASSERT_EQUAL(3, get_v_bucket(16, &small_block_consts));
+    TEST_ASSERT_EQUAL(5, get_v_bucket(16, &medium_block_consts));
+}
