@@ -42,7 +42,7 @@ SRC_FILES1=\
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src
 SYMBOLS=
 
-all: clean default
+all: clean default min_bit
 
 default:
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1) -lm
@@ -51,3 +51,5 @@ default:
 clean:
 	$(CLEANUP)
 
+min_bit:
+	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) -o min_bit src/3rdparty/cephes.c src/utils.c src/rand_tests.c src/min_bit.c -lm

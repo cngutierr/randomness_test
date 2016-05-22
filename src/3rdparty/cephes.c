@@ -29,7 +29,7 @@ cephes_igamc(double a, double x)
 	ax = a * log(x) - x - cephes_lgam(a);
 
 	if ( ax < -MAXLOG ) {
-		printf("igamc: UNDERFLOW\n");
+		//printf("igamc: UNDERFLOW\n");
 		return 0.0;
 	}
 	ax = exp(ax);
