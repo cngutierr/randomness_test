@@ -24,7 +24,7 @@ float freq_block(unsigned char* buf, unsigned int buf_size, unsigned int block_s
         sum += pi*pi;
     }
     chi_sq = 4.0 * (float) block_size * BYTE_SIZE * sum;
-    //printf("qs=%f, psum=%f\n", chi_sq, cephes_igamc(num_blocks/2.0, chi_sq/2.0));
+    printf("qs=%f, psum=%f\n", chi_sq, cephes_igamc(num_blocks/2.0, chi_sq/2.0));
     return cephes_igamc(num_blocks/2.0, chi_sq/2.0);
 }
 
