@@ -7,11 +7,14 @@
 int bit_sum(unsigned char* buf, unsigned int buf_len)
 {
     unsigned int sum = 0;
-    
-    for(unsigned int i = 0; i < buf_len; i++)
-        for(unsigned int j = 0; j < BYTE_SIZE; j++)
-            sum += 2 * ((buf[i] >> j) & 1) - 1;
-    
+    unsigned int i;
+    int ratio[16] = {-4, -2, -2,  0, 
+                     -2,  0,  0,  2, 
+                     -2,  0,  0,  2,
+                      0,  2,  2,  4};
+    for(i = 0; i < buf_len; i++)
+      sum += ratio[buf[i] & 0x0f] + ratio[buf[i] >> 4];
+  
     return sum;
 }
 
